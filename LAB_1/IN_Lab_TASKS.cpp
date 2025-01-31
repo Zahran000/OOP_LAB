@@ -1,5 +1,5 @@
 // Syed Zahran 
-// rol No 24K-0672
+// roll No 24K-0672
 
 
 #include <iostream>
