@@ -81,10 +81,10 @@ public:
 };
 
 int main() {
-    Warrior tipu("W001", "Tipu Sultana", 10, 150, "Scimitar", 50, 35);
-    Mage jinnah("M001", "Allama iqbal", 8, 80, "Staff", 100, 60);
+    Warrior tipu("W001", "zahran", 10, 150, "Scimitar", 50, 35);
+    Mage jinnah("M001", "maaz iqbal", 8, 80, "Staff", 100, 60);
     Archer razia("A001", "Razzo Sultan", 12, 110, "Longbow", 20, 85);
-    Rogue bhutto("R001", "Bhutto the bhangi", 15, 95, "Daggers", 90, 95);
+    Rogue bhutto("R001", "Burair the bhang", 15, 95, "Daggers", 90, 95);
     
     tipu.attack();
     tipu.displayStats();
