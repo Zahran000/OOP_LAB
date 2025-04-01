@@ -84,4 +84,29 @@ public:
     void displayTicketInfo() override {
         Ticket::displayTicketInfo();
         cout << "Artist: " << artistName << "\nVenue: " << venue 
-             << "\nSeat Type: " <<
+             << "\nSeat Type: " << seatType << endl;
+    }
+};
+
+int main() {
+    FlightTicket pia("F001", "Ali Khan", 25000, "2023-12-15", "Islamabad to Dubai", "PIA", "PK233", "Economy");
+    TrainTicket khyberMail("T001", "Fatima Ahmed", 1500, "2023-11-20", "Karachi to Peshawar", "Khyber Mail", "AC", "08:00");
+    BusTicket daewoo("B001", "Usman Malik", 1200, "2023-10-10", "Lahore to Islamabad", "Daewoo", "12A");
+    ConcertTicket cokeStudio("C001", "Ayesha Raza", 5000, "2023-12-25", "Karachi", "Atif Aslam", "Expo Center", "VIP");
+    
+    pia.reserve();
+    pia.displayTicketInfo();
+    cout << endl;
+    
+    khyberMail.reserve();
+    cout << endl;
+    
+    daewoo.reserve();
+    daewoo.cancel();
+    cout << endl;
+    
+    cokeStudio.reserve();
+    cokeStudio.displayTicketInfo();
+    
+    return 0;
+}
