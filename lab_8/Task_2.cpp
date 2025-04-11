@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string>
-using namespace std;
 
-class Manager;
+using namespace std;
 
 class Account {
 private:
@@ -10,71 +9,63 @@ private:
     double balance;
 
 public:
-    Account(string accNum, double initialBalance) 
-        : accountNumber(accNum), balance(initialBalance) {}
+    Account(string accNum, double bal) : accountNumber(accNum), balance(bal) {}
 
     friend class Manager;
-    friend void transferFunds(Account& from, Account& to, double amount, Manager& manager);
-
-    void displayInfo() const {
-        cout << "Account Number: " << accountNumber << endl;
-        cout << "Balance: $" << balance << endl;
-    }
+    friend void transferFunds(Account& from, Account& to, double amount);
 };
 
 class Manager {
 public:
-    void deposit(Account& account, double amount) {
-        if (amount > 0) {
-            account.balance += amount;
-            cout << "Deposited $" << amount << " to account " << account.accountNumber << endl;
-        } else {
-            cout << "Invalid deposit amount!" << endl;
-        }
+    void displayAccount(const Account& acc) {
+        cout << "Account Number: " << acc.accountNumber << endl;
+        cout << "Balance: Rs. " << acc.balance << endl;
     }
 
-    void withdraw(Account& account, double amount) {
-        if (amount > 0 && amount <= account.balance) {
-            account.balance -= amount;
-            cout << "Withdrew $" << amount << " from account " << account.accountNumber << endl;
-        } else {
-            cout << "Invalid withdrawal amount or insufficient funds!" << endl;
-        }
+    void deposit(Account& acc, double amount) {
+        acc.balance += amount;
+        cout << "Deposited Rs. " << amount << " into Account " << acc.accountNumber << endl;
     }
 
-    void displayAccountInfo(const Account& account) {
-        cout << "\nAccount Details:" << endl;
-        account.displayInfo();
-        cout << "-----------------" << endl;
+    void withdraw(Account& acc, double amount) {
+        if (acc.balance >= amount) {
+            acc.balance -= amount;
+            cout << "Withdrawn Rs. " << amount << " from Account " << acc.accountNumber << endl;
+        } else {
+            cout << "Insufficient balance in Account " << acc.accountNumber << endl;
+        }
     }
 };
 
-void transferFunds(Account& from, Account& to, double amount, Manager& manager) {
-    if (amount > 0 && from.balance >= amount) {
-        manager.withdraw(from, amount);
-        manager.deposit(to, amount);
-        cout << "Transferred $" << amount << " from account " << from.accountNumber 
-             << " to account " << to.accountNumber << endl;
+void transferFunds(Account& from, Account& to, double amount) {
+    if (from.balance >= amount) {
+        from.balance -= amount;
+        to.balance += amount;
+        cout << "Transferred Rs. " << amount << " from Account " << from.accountNumber 
+             << " to Account " << to.accountNumber << endl;
     } else {
-        cout << "Transfer failed: Invalid amount or insufficient funds!" << endl;
+        cout << "Transfer failed. Insufficient balance in Account " << from.accountNumber << endl;
     }
 }
 
 int main() {
-    Account acc1("ACC123", 1000.0);
-    Account acc2("ACC456", 500.0);
+    Account acc1("PK123456", 5000.0);
+    Account acc2("PK789012", 3000.0);
+
     Manager bankManager;
 
-    bankManager.displayAccountInfo(acc1);
-    bankManager.displayAccountInfo(acc2);
+    cout << "Initial Account Details:" << endl;
+    bankManager.displayAccount(acc1);
+    bankManager.displayAccount(acc2);
 
-    bankManager.deposit(acc1, 200.0);
-    bankManager.withdraw(acc2, 100.0);
+    bankManager.deposit(acc1, 2000.0);
+    bankManager.withdraw(acc2, 1000.0);
 
-    transferFunds(acc1, acc2, 300.0, bankManager);
+    transferFunds(acc1, acc2, 1500.0);
 
-    bankManager.displayAccountInfo(acc1);
-    bankManager.displayAccountInfo(acc2);
+    cout << "\nUpdated Account Details:" << endl;
+    bankManager.displayAccount(acc1);
+    bankManager.displayAccount(acc2);
 
     return 0;
 }
