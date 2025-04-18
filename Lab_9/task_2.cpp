@@ -2,7 +2,6 @@
 #include <string>
 using namespace std;
 
-// Abstract base class MenuItem
 class MenuItem {
 protected:
     string dishName;
@@ -12,12 +11,10 @@ public:
     MenuItem(const string& name, double price) : dishName(name), price(price) {}
     virtual ~MenuItem() {}
 
-    // Pure virtual functions to be implemented by derived classes
     virtual void showDetails() const = 0;
     virtual void prepare() const = 0;
 };
 
-// Derived class for Appetizer
 class Appetizer : public MenuItem {
 private:
     string dipSauce;
@@ -41,7 +38,6 @@ public:
     }
 };
 
-// Derived class for MainCourse
 class MainCourse : public MenuItem {
 private:
     string sideDish;
@@ -67,11 +63,9 @@ public:
 };
 
 int main() {
-    // Create menu items
     MenuItem* item1 = new Appetizer("Bruschetta", 8.99, "Balsamic");
     MenuItem* item2 = new MainCourse("Grilled Salmon", 22.99, "Mashed Potatoes");
 
-    // Use polymorphism to display details and preparation steps
     cout << "=== Menu Item 1 ===" << endl;
     item1->showDetails();
     cout << "\nPreparation Steps:" << endl;
@@ -84,7 +78,6 @@ int main() {
     item2->prepare();
     cout << endl;
 
-    // Clean up
     delete item1;
     delete item2;
 
